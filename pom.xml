@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.aegeus</groupId>
+    <artifactId>aegeus</artifactId>
+    <packaging>pom</packaging>
+    <version>0.1</version>
+
+    <properties>
+        <jdk.version>1.7</jdk.version>
+        <scala.version>2.10.4</scala.version>
+        <scala.major.version>2.10</scala.major.version>
+        <scala-tools.version>2.15.2</scala-tools.version>
+    </properties>
+
+    <modules>
+        <module>aegeus-core</module>
+        <module>aegeus-engine</module>
+        <module>aegeus-web</module>
+        <module>aegeus-app</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

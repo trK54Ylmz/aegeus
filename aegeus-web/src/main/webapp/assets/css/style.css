@@ -1,0 +1,30 @@
+.mt-s {
+    margin-top: 4px;
+}
+
+.mt {
+    margin-top: 8px;
+}
+
+.mt-l {
+    margin-top: 16px;
+}
+
+.mt-x-l {
+    margin-top: 32px;
+}
+
+.non-b {
+    font-weight: normal;
+}
+
+.login-form {
+    width: 360px;
+    padding: 30px 40px;
+    margin: 10% auto 0;
+}
+
+.shadow-border {
+    border: 1px solid #ccc;
+    box-shadow: 0 14px 22px -18px rgba(200, 200, 200, 0.6);
+}

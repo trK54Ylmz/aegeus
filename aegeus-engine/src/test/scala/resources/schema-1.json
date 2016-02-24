@@ -1,0 +1,18 @@
+{
+  "table": "search",
+  "active": true,
+  "fields": [
+    {
+      "name": "search_id",
+      "alias": "sid",
+      "type": "String",
+      "primary": true
+    },
+    {
+      "name": "price",
+      "alias": "prc",
+      "type": "double",
+      "def": "0"
+    }
+  ]
+}

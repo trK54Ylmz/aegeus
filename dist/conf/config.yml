@@ -1,0 +1,70 @@
+# Application workflow configuration
+workflow:
+  # Latency between each task in min
+  latency: 10
+
+  # Web application http port
+  httpPort: 9800
+
+  dbUser: test
+
+  dbPass: test
+
+  # Web application embedded database port
+  dbPort: 9801
+
+  #
+  queueSize: 20
+
+  #
+  threadSize: 4
+
+db:
+  # Database type (mysql, memsql, postgres or redshift). Default: memsql
+  type: memsql
+
+  host: localhost
+
+  port: 3306
+
+  username: temp
+
+  password: temp
+
+  db: test
+
+aws:
+
+  s3:
+    accessKey: test
+
+    secretKey: test
+
+    bucket: bucket
+
+    key: key
+
+    region: region
+
+  emr:
+    accessKey: key
+
+    secretKey: key
+
+    region: region
+
+    keyName: region
+
+    subnetId:
+
+    place:
+
+    instanceCount: 4
+
+    masterType:
+
+    slaveType:
+
+    logBucket:
+
+    name:
