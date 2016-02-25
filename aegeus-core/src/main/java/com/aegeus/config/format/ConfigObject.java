@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.config.format;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.aegeus.config.Printable;
 
-public class ConfigObject
+public class ConfigObject extends Printable
 {
     private WorkflowConfigObject workflow;
 
@@ -51,6 +52,6 @@ public class ConfigObject
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return this.toString();
     }
 }

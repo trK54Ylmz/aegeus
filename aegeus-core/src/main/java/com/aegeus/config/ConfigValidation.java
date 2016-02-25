@@ -21,7 +21,8 @@ import com.aegeus.config.format.EmrConfigObject;
 import com.aegeus.config.format.S3ConfigObject;
 import com.aegeus.config.format.WorkflowConfigObject;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.apache.log4j.Logger;
 
 /**
@@ -75,7 +76,7 @@ public class ConfigValidation
     private void validateDb() throws IllegalValueException {
         DbConfigObject db = config.getDb();
 
-        if (StringUtils.isEmpty(db.getHost())) {
+        if (Strings.isNullOrEmpty(db.getHost())) {
             db.setHost("localhost");
         }
 
@@ -103,31 +104,31 @@ public class ConfigValidation
             throw new MissingValueException("aws.s3 object must be entered");
         }
 
-        if (StringUtils.isEmpty(emr.getAccessKey())) {
+        if (Strings.isNullOrEmpty(emr.getAccessKey())) {
             throw new MissingValueException("aws.emr.accessKey must be entered. Please check aws console AIM section. "
                     + "For information please check : "
                     + "http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html");
         }
 
-        if (StringUtils.isEmpty(emr.getSecretKey())) {
+        if (Strings.isNullOrEmpty(emr.getSecretKey())) {
             throw new MissingValueException("aws.emr.secretKey must be entered. Please check aws console AIM section. "
                     + "For information please check : "
                     + "http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html");
         }
 
-        if (StringUtils.isEmpty(s3.getAccessKey())) {
+        if (Strings.isNullOrEmpty(s3.getAccessKey())) {
             throw new MissingValueException("aws.s3.accessKey must be entered. Please check aws console AIM section. "
                     + "For information please check : "
                     + "http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html");
         }
 
-        if (StringUtils.isEmpty(s3.getSecretKey())) {
+        if (Strings.isNullOrEmpty(s3.getSecretKey())) {
             throw new MissingValueException("aws.s3.secretKey must be entered. Please check aws console AIM section. "
                     + "For information please check : "
                     + "http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html");
         }
 
-        if (StringUtils.isEmpty(emr.getName())) {
+        if (Strings.isNullOrEmpty(emr.getName())) {
             logger.info("aws.emr.name is empty. Cluster name assigned to `aegeus-`");
         }
 
@@ -137,17 +138,17 @@ public class ConfigValidation
             emr.setInstanceCount((byte) 2);
         }
 
-        if (StringUtils.isEmpty(emr.getRegion())) {
+        if (Strings.isNullOrEmpty(emr.getRegion())) {
             emr.setPlace("us-east-1");
         }
 
-        if (StringUtils.isEmpty(emr.getMasterType())) {
+        if (Strings.isNullOrEmpty(emr.getMasterType())) {
             logger.info("aws.emr.masterType is empty. Master type selected as m3.xlarge");
 
             emr.setMasterType("m3x.large");
         }
 
-        if (StringUtils.isEmpty(emr.getSlaveType())) {
+        if (Strings.isNullOrEmpty(emr.getSlaveType())) {
             logger.info("aws.emr.slaveType is empty. Slave type selected as m3.xlarge");
 
             emr.setMasterType("m3x.large");

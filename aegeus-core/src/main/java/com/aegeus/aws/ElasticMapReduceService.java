@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Tarık Yılmaz
+ * Copyright 2016 Tarık Yılmaz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.aws;
 
 import com.aegeus.config.format.EmrConfigObject;
@@ -21,16 +22,16 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduceClient;
 import com.amazonaws.services.elasticmapreduce.model.*;
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Strings;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class ElasticMapReduceService
 {
-    private static final Logger logger = Logger.getLogger(ElasticMapReduceService.class);
+    private static final Logger LOGGER = Logger.getLogger(ElasticMapReduceService.class);
 
-    private final int SLEEP = 10000;
+    private static final int SLEEP = 10000;
 
     private EmrConfigObject config;
 
@@ -58,11 +59,11 @@ public class ElasticMapReduceService
                 .withMasterInstanceType(config.getMasterType())
                 .withSlaveInstanceType(config.getSlaveType());
 
-        if (StringUtils.isEmpty(config.getKeyName())) {
+        if (Strings.isNullOrEmpty(config.getKeyName())) {
             instances.setEc2KeyName(config.getKeyName());
         }
 
-        if (!StringUtils.isEmpty(config.getSubnetId())) {
+        if (!Strings.isNullOrEmpty(config.getSubnetId())) {
             instances.setEc2SubnetId(config.getSubnetId());
         } else {
             instances.setPlacement(new PlacementType(config.getPlace()));
@@ -81,7 +82,7 @@ public class ElasticMapReduceService
                 .withBootstrapActions(installEs)
                 .withInstances(instances);
 
-        if (!StringUtils.isEmpty(config.getLogBucket())) {
+        if (!Strings.isNullOrEmpty(config.getLogBucket())) {
             request.setLogUri(config.getLogBucket());
         }
 
@@ -113,7 +114,7 @@ public class ElasticMapReduceService
                 String reason = result.getCluster().getStatus().getStateChangeReason().getMessage();
 
                 if (!reason.equals(lastReason)) {
-                    logger.info("Cluster status changed. New status is " + reason);
+                    LOGGER.info("Cluster status changed. New status is " + reason);
                     lastReason = reason;
                 }
 
@@ -124,7 +125,7 @@ public class ElasticMapReduceService
 
                 Thread.sleep(SLEEP);
             } catch (InterruptedException e) {
-                logger.error(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }

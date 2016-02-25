@@ -1,33 +1,68 @@
 #!/bin/bash
+
 #
-# @author Tarık Yılmaz
+#    Copyright 2015 Tarık Yılmaz
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+
+
+# Set the current directory
+export CURR_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 # Set the minimum memory size which is provided for JVM
-export MIN_MEM=200
+export MIN_MEM=200m
 
 # Set the maximum memory size which is provided for JVM
-export MAX_MEM=600
+export MAX_MEM=600m
 
-export CONFIG=../conf/config.yml
+# Get process id by part of file name
+export PID=`ps aux | grep -iG qaegeus-app-*.jar | grep -v grep | awk '{print $2}'`
+
+export CONFIG=${CURR_DIR}/../conf/config.yml
 
     
 start() {
-    echo "Aegeus starting ..."
+    if [ ${#PID} -eq 0 ];
+    then
+        echo "Aegeus starting ..."
 
-    java -Dfilename=aegeus-app -Dconfig=$CONFIG \
-        -cp "../lib/*" \
-        com.aegeus.App > /dev/null 2>&1
-
+        java -Xms${MIN_MEM} -Xmx${MAX_MEM} \
+            -Dlog4j.configuration=file:${CURR_DIR}/../logs/log4j.properties \
+            -Dfilename=aegeus-app -Dconfig=${CONFIG} \
+            -cp "../lib/*" \
+            com.aegeus.App > /dev/null 2>&1
+    else
+        echo "Aegeus already running"
+    fi
 }
 
 stop() {
-    echo "Aegeus stopping ..."
+    if [ ${#PID} -gt 0 ];
+    then
+        echo "Aegeus stopping ..."
 
-    kill $PID
+        kill $PID
+    fi
 }
 
 status() {
-
+    if [ ${#PID} -gt 0 ];
+    then
+        echo "Aegeus is running"
+    else
+        echo "Aegeus is not running"
+    fi
 }
 
 case "$1" in 
