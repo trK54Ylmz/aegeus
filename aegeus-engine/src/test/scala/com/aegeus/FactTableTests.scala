@@ -17,7 +17,7 @@ package com.aegeus
 
 import java.util.Date
 
-import com.aegeus.spark.es.ElasticsearchClient
+import com.aegeus.engine.es.ElasticsearchClient
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 

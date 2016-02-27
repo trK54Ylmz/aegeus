@@ -15,7 +15,7 @@
  */
 package com.aegeus
 
-import com.aegeus.spark.es.ElasticsearchClient
+import com.aegeus.engine.es.ElasticsearchClient
 import org.scalatest.FunSuite
 
 class EsTests extends FunSuite

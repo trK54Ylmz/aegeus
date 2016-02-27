@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.db;
 
 import com.aegeus.config.format.ConfigObject;
@@ -24,7 +25,7 @@ import java.util.concurrent.Executors;
 
 public class EmbeddedDataSource
 {
-    private static final Logger logger = Logger.getLogger(EmbeddedDataSource.class);
+    private static final Logger LOGGER = Logger.getLogger(EmbeddedDataSource.class);
 
     private Server server;
 
@@ -36,7 +37,7 @@ public class EmbeddedDataSource
 
     /**
      * Create an synchronous database
-     * <p>
+     * <p/>
      * Configuration making based on workflow section
      * which is contains in configuration file
      *
@@ -44,33 +45,31 @@ public class EmbeddedDataSource
      */
     private void sync(int port) {
         try {
-            logger.info("Web database starting at " + port);
+            LOGGER.info("Web database starting at " + port);
 
-            /**
-             * Create tcp based h2 database instance
-             */
-            server = Server.createTcpServer("-tcpPort", String.valueOf(port), "-baseDir", "/tmp/aegeus", "-tcpAllowOthers").start();
+            /* Create tcp based h2 database instance */
+            server = Server.createTcpServer("-tcpPort", String.valueOf(port),
+                    "-baseDir", System.getProperty("java.io.tmpdir") + "/aegeus",
+                    "-tcpAllowOthers").start();
 
-            if (logger.isDebugEnabled()) {
-                server.getStatus();
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Embedded database status detected as " + server.getStatus());
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
     /**
      * Create an asynchronous database
-     *
+     * <p/>
      * Configuration making based on workflow section
      * which is contains in configuration file
      *
      * @param port Tcp communication port
      */
     private void async(final int port) {
-        /**
-         * Wrap method as async method
-         */
+        /* Wrap method as async method */
         Executors.newSingleThreadExecutor().execute(new Runnable()
         {
             @Override
@@ -87,8 +86,7 @@ public class EmbeddedDataSource
      * @param isAsync Database creation state
      */
     public void start(int port, boolean isAsync) {
-        if (isAsync)
-            async(port);
+        if (isAsync) async(port);
         else sync(port);
     }
 

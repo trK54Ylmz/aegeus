@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.aegeus.spark.schema
+package com.aegeus.engine.schema
 
-import com.aegeus.spark.config.ConfigObject
+import com.aegeus.engine.config.ConfigObject
 import com.aegeus.config.format.S3ConfigObject
 
 import scala.collection.JavaConversions._
@@ -24,7 +24,7 @@ import java.io.{File, IOException}
 
 import com.aegeus.aws.SimpleStorageService
 import com.aegeus.schema.{Schema, SchemaParser}
-import com.aegeus.spark.utils.StringUtils
+import com.aegeus.engine.utils.StringUtils
 
 class SchemaReader(conf: ConfigObject)
 {

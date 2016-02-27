@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.spark
 
-import com.aegeus.spark.config.{ConfigParser, ConfigObject}
-import com.aegeus.spark.input.CloudFrontReader
-import com.aegeus.spark.job.SparkJobFactory
-import com.aegeus.spark.schema.SchemaReader
+package com.aegeus.engine
+
+import com.aegeus.engine.config.{ConfigParser, ConfigObject}
+import com.aegeus.engine.input.CloudFrontReader
+import com.aegeus.engine.job.SparkJobFactory
+import com.aegeus.engine.schema.SchemaReader
 import org.apache.log4j.Logger
 
 object Enrich

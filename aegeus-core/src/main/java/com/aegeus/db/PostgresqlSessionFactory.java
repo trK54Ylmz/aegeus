@@ -18,9 +18,18 @@ package com.aegeus.db;
 
 import com.aegeus.config.format.DbConfigObject;
 
-public class H2SessionFactory extends DbSessionFactory
-{
-    public H2SessionFactory(DbConfigObject config) {
+import java.util.List;
 
+public class PostgresqlSessionFactory extends DbSessionFactory
+{
+    public PostgresqlSessionFactory(DbConfigObject config, List<Class> mapping) {
+        DbIdentity identity = new DbIdentity();
+        identity.setDriver("org.postgresql.Driver");
+        identity.setDialect("org.hibernate.dialect.PostgreSQLDialect");
+        identity.setUrl(String.format("jdbc:postgresql://%s:%d/%s", config.getHost(), config.getPort(), config.getDb()));
+        identity.setUsername(config.getUsername());
+        identity.setPassword(config.getPassword());
+
+        build(identity, mapping);
     }
 }

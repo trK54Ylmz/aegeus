@@ -13,7 +13,6 @@
 
     <properties>
         <aegeus.core.version>0.1</aegeus.core.version>
-        <aegeus.schema.version>0.1</aegeus.schema.version>
         <spring.boot.version>1.2.5.RELEASE</spring.boot.version>
         <spring.version>4.1.7.RELEASE</spring.version>
         <spring.session.version>1.0.2.RELEASE</spring.session.version>
@@ -45,12 +44,6 @@
                     <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.aegeus</groupId>
-            <artifactId>aegeus-schema</artifactId>
-            <version>${aegeus.schema.version}</version>
         </dependency>
 
         <dependency>
@@ -172,6 +165,22 @@
                     <execution>
                         <id>dev-copy-resources</id>
                         <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.directory}/classes/webapp/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/webapp</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>compile-copy-resources</id>
+                        <phase>compile</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>

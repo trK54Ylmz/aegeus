@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.controller;
 
 import com.aegeus.response.Output;
 import com.aegeus.util.RequestProperties;
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Strings;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class LogInController
     @RequestMapping(value = "/login", method = POST)
     public ModelAndView login(@RequestParam(value = "username") String username,
                               @RequestParam(value = "password") String password) {
-        if (StringUtils.isAnyEmpty(username, password)) {
+        if (Strings.isNullOrEmpty(username) || Strings.isNullOrEmpty(password)) {
             return null;
         }
 

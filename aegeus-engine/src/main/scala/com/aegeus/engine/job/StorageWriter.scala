@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.aegeus.engine.job
 
-package com.aegeus.spark.utils
+import com.aegeus.schema.Schema
+import com.aegeus.engine.config.ConfigObject
+import org.apache.spark.SparkContext
+import org.apache.spark.sql.SQLContext
 
-object StringUtils
+class StorageWriter(sc: SparkContext, conf: ConfigObject, schema: Map[String, Schema])
 {
-  def isEmpty(str: String) = Option(str).getOrElse("").isEmpty
+  val sql = new SQLContext(sc)
 
-  def isEmptyAny(str: String*): Boolean = str.filter { s => Option(s).getOrElse("").isEmpty }.toList.nonEmpty
+  def write(): Unit = {
 
-  def getFirstEmpty(str: String*): Int = str.indexOf(str.filter { s => Option(s).getOrElse("").isEmpty }.head)
+  }
 }

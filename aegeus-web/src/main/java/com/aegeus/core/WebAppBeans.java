@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.core;
 
 import com.aegeus.config.format.ConfigObject;
-import com.aegeus.db.DBSessionFactory;
+import com.aegeus.db.DbSessionFactory;
 import com.aegeus.db.MysqlSessionFactory;
 import com.aegeus.db.PostgresqlSessionFactory;
 import com.aegeus.utils.ConfigUtils;
 import com.aegeus.utils.SchemaUtils;
+import com.google.common.base.Preconditions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,8 +38,8 @@ public class WebAppBeans
         return ConfigUtils.getConfig();
     }
 
-    public DBSessionFactory factory() throws ClassNotFoundException, IOException {
-        DBSessionFactory factory = null;
+    public DbSessionFactory factory() throws ClassNotFoundException, IOException {
+        DbSessionFactory factory = null;
         ConfigObject config = config();
 
         switch (config.getDb().getType()) {
@@ -52,10 +54,8 @@ public class WebAppBeans
                 break;
         }
 
-        if (factory == null) {
-            throw new IllegalStateException("Database type is invalid. "
-                    + "The database type must be `mysql`, `memsql`, `postgres` or `redshift`");
-        }
+        Preconditions.checkNotNull(factory,
+                "Database type is invalid. The database type must be `mysql`, `memsql`, `postgres` or `redshift`");
 
         return factory;
     }

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.spark.input
+package com.aegeus.engine.input
 
 import java.net.URLDecoder
 
 import com.aegeus.schema.{Schema, SchemaField}
-import com.aegeus.spark.config.ConfigObject
-import com.aegeus.spark.`object`.CloudFrontLog
+import com.aegeus.engine.config.ConfigObject
+import com.aegeus.engine.log.CloudFrontLog
 import com.aegeus.utils.ParameterUtils
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD

@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.spark.job
+package com.aegeus.engine.input
 
-import com.aegeus.schema.Schema
-import com.aegeus.spark.config.ConfigObject
-import org.apache.spark.SparkContext
-import org.apache.spark.sql.SQLContext
+import com.aegeus.engine.es.ElasticsearchClient
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 
-class StorageWriter(sc: SparkContext, conf: ConfigObject, schema: Map[String, Schema])
+trait LogReader
 {
-  val sql = new SQLContext(sc)
+  val es = new ElasticsearchClient
+  es.createIndices
 
-  def write(): Unit = {
+  val writer = new ObjectMapper() with ScalaObjectMapper
+  writer.registerModule(DefaultScalaModule)
 
-  }
+  def parse()
 }

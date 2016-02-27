@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 
 public class WebServer
 {
-    private static final Logger logger = Logger.getLogger(WebServer.class);
+    private static final Logger LOGGER = Logger.getLogger(WebServer.class);
 
     public static void main(String[] args) {
         try {
@@ -35,9 +35,7 @@ public class WebServer
 
             final RootExecutor executor = new RootExecutor(args, new ConfigValidation(config).validate());
 
-            /**
-             * add ctrl-c handler
-             */
+            /* add ctrl-c handler */
             Runtime.getRuntime().addShutdownHook(new Thread()
             {
                 @Override
@@ -48,7 +46,7 @@ public class WebServer
 
             executor.start();
         } catch (Throwable t) {
-            logger.error(t.getMessage(), t);
+            LOGGER.error(t.getMessage(), t);
         }
     }
 }

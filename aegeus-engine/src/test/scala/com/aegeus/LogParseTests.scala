@@ -15,7 +15,7 @@
  */
 package com.aegeus
 
-import com.aegeus.spark.`object`.CloudFrontLog
+import com.aegeus.engine.log.CloudFrontLog
 import org.scalatest.FunSuite
 
 class LogParseTests extends FunSuite

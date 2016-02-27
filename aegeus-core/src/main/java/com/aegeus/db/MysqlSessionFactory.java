@@ -18,9 +18,18 @@ package com.aegeus.db;
 
 import com.aegeus.config.format.DbConfigObject;
 
-public class H2SessionFactory extends DbSessionFactory
-{
-    public H2SessionFactory(DbConfigObject config) {
+import java.util.List;
 
+public class MysqlSessionFactory extends DbSessionFactory
+{
+    public MysqlSessionFactory(DbConfigObject config, List<Class> mapping) {
+        DbIdentity identity = new DbIdentity();
+        identity.setDriver("com.mysql.jdbc.Driver");
+        identity.setDialect("org.hibernate.dialect.MySQLDialect");
+        identity.setUrl(String.format("jdbc:mysql://%s:%d/%s", config.getHost(), config.getPort(), config.getDb()));
+        identity.setUsername(config.getUsername());
+        identity.setPassword(config.getPassword());
+
+        build(identity, mapping);
     }
 }

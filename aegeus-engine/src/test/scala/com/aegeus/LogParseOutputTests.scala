@@ -19,7 +19,7 @@ import java.net.URLDecoder
 import java.util
 
 import com.aegeus.schema.{Schema, SchemaField}
-import com.aegeus.spark.`object`.CloudFrontLog
+import com.aegeus.engine.log.CloudFrontLog
 import com.aegeus.utils.ParameterUtils
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.csv.CsvMapper

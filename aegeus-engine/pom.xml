@@ -43,12 +43,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.aegeus</groupId>
-            <artifactId>aegeus-schema</artifactId>
-            <version>${aegeus-schema.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.major.version}</artifactId>
             <version>${spark.version}</version>
@@ -130,7 +124,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>com.aegeus.spark.Enrich</mainClass>
+                                    <mainClass>com.aegeus.engine.Enrich</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
@@ -151,7 +145,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>com.aegeus.spark.Sink</mainClass>
+                                    <mainClass>com.aegeus.engine.Sink</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.spark.job
+package com.aegeus.engine.job
 
-import com.aegeus.spark.config.ConfigObject
+import com.aegeus.engine.config.ConfigObject
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper

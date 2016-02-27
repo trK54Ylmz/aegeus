@@ -58,10 +58,12 @@ public class AuthenticationConfiguration
 
     @Bean
     public JdbcRealm realm() {
+        String uri = String.format("jdbc:h2:tcp://localhost:%d/aegeus", config().getWorkflow().getDbPort());
+
         ConfigObject config = config();
 
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL(String.format("jdbc:h2:tcp://localhost:%d/~/test", config.getWorkflow().getDbPort()));
+        ds.setURL(uri);
         ds.setUser(config.getWorkflow().getDbUser());
         ds.setPassword(config.getWorkflow().getDbPass());
 
@@ -71,7 +73,7 @@ public class AuthenticationConfiguration
         JdbcRealm realm = new JdbcRealm();
         realm.setDataSource(ds);
         realm.setPermissionsLookupEnabled(true);
-        realm.setAuthenticationQuery("SELECT password FROM users WHERE user = ?");
+        realm.setAuthenticationQuery("SELECT pass FROM users WHERE user = ?");
         realm.setPermissionsQuery("SELECT p.permission FROM permissions p INNER JOIN users u ON p.user_id = u.id WHERE u.user = ?");
         realm.setUserRolesQuery("SELECT r.role FROM roles r INNER JOIN users u ON u.id = r.user_id WHERE u.user = ?");
         realm.setCredentialsMatcher(matcher);

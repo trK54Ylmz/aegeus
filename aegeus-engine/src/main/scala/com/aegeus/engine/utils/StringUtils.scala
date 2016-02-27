@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.spark.input
 
-import com.aegeus.spark.es.ElasticsearchClient
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
+package com.aegeus.engine.utils
 
-trait LogReader
+object StringUtils
 {
-  val es = new ElasticsearchClient
-  es.createIndices
+  def isEmpty(str: String) = Option(str).getOrElse("").isEmpty
 
-  val writer = new ObjectMapper() with ScalaObjectMapper
-  writer.registerModule(DefaultScalaModule)
+  def isEmptyAny(str: String*): Boolean = str.filter { s => Option(s).getOrElse("").isEmpty }.toList.nonEmpty
 
-  def parse()
+  def getFirstEmpty(str: String*): Int = str.indexOf(str.filter { s => Option(s).getOrElse("").isEmpty }.head)
 }

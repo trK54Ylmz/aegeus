@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.aegeus.spark
+package com.aegeus.engine
 
-import com.aegeus.spark.config.{ConfigParser, ConfigObject}
-import com.aegeus.spark.job.{StorageWriter, FactTableWriter, SparkJobFactory}
-import com.aegeus.spark.schema.SchemaReader
+import com.aegeus.engine.config.{ConfigParser, ConfigObject}
+import com.aegeus.engine.job.{StorageWriter, FactTableWriter, SparkJobFactory}
+import com.aegeus.engine.schema.SchemaReader
 import org.apache.log4j.Logger
 
 object Sink
