@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.engine
 
-import com.aegeus.engine.config.{ConfigParser, ConfigObject}
+import com.aegeus.engine.config.ConfigParser
+import com.aegeus.engine.config.format.CliConfigObject
 import com.aegeus.engine.input.CloudFrontReader
 import com.aegeus.engine.job.SparkJobFactory
-import com.aegeus.engine.schema.SchemaReader
 import org.apache.log4j.Logger
 
-object Enrich
-{
+object Enrich {
   private[this] lazy val logger = Logger.getLogger(this.getClass.getName)
 
-  val config = ConfigParser.load[ConfigObject]
-
-  val job = new SparkJobFactory(config).startClient
-
   def main(args: Array[String]) {
+    val config = ConfigParser.getConfig(args, classOf[CliConfigObject])
+
+    val job = new SparkJobFactory(config).startContext
+
     try {
-      val schemas = new SchemaReader(config).read()
-      val input = new CloudFrontReader(job.sc, config, schemas)
+      val input = new CloudFrontReader(job.sc, config)
 
       input.parse()
     } catch {

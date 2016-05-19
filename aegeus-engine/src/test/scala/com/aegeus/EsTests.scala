@@ -18,8 +18,7 @@ package com.aegeus
 import com.aegeus.engine.es.ElasticsearchClient
 import org.scalatest.FunSuite
 
-class EsTests extends FunSuite
-{
+class EsTests extends FunSuite {
   val es = new ElasticsearchClient
   es.types = Map("uid" -> classOf[Int], "search_id" -> classOf[String], "product_id" -> classOf[String])
   es.createIndices

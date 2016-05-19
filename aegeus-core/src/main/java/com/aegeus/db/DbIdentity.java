@@ -18,8 +18,7 @@ package com.aegeus.db;
 
 import com.aegeus.config.Printable;
 
-public class DbIdentity extends Printable
-{
+public class DbIdentity extends Printable {
     private String driver;
 
     private String dialect;

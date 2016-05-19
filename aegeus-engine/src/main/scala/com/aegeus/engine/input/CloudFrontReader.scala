@@ -15,58 +15,19 @@
  */
 package com.aegeus.engine.input
 
-import java.net.URLDecoder
-
-import com.aegeus.schema.{Schema, SchemaField}
-import com.aegeus.engine.config.ConfigObject
-import com.aegeus.engine.log.CloudFrontLog
-import com.aegeus.utils.ParameterUtils
+import com.aegeus.engine.config.format.CliConfigObject
+import com.aegeus.engine.io.CloudFrontLog
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
-import scala.collection.JavaConversions._
-import scala.collection.mutable
-
-class CloudFrontReader(sc: SparkContext, conf: ConfigObject, schemas: Map[String, Schema]) extends LogReader
-{
+class CloudFrontReader(sc: SparkContext, conf: CliConfigObject) extends LogReader {
   override def parse(): Unit = {
-    val files: RDD[String] = sc.textFile(conf.data)
-    val schemaKeys = schemas.map(_._2.getPath).toSeq
+    val files: RDD[String] = sc.textFile(conf.getInput)
 
     val group = files.filter(!_.startsWith("#"))
       .map(p => new CloudFrontLog(p.split("[\\s]+")))
       .filter(p => p.resType.equals("Hit"))
       .groupBy(_.path)
-
-    group.foreach { p =>
-      val m = p._2.filter {
-        r => schemaKeys.contains(r.path.substring(1))
-      }.map { r =>
-        val name = r.path.substring(1)
-        val schema: Schema = schemas.get(name).get
-        val fields: List[SchemaField] = schema.getFields.toList
-
-        val params = Map(r.query.split('&')
-          .map(_.split('='))
-          .map { a => (URLDecoder.decode(a(0), "utf-8"), URLDecoder.decode(a(1), "utf-8")) }: _*)
-
-        val row = mutable.ListBuffer[Any]()
-        fields.foreach { f =>
-          if (params.contains(f.getAlias)) {
-            row add ParameterUtils.getObject(f.getType, params.getOrElse(f.getAlias, ""))
-          } else {
-            if (f.isNullable) {
-              row add null
-            } else if (f.getDef != null) {
-              row add ParameterUtils.getObject(f.getType, f.getDef)
-            }
-          }
-        }
-        writer.writeValueAsString(row.toList)
-      }
-
-      sc.parallelize(m.toSeq).saveAsTextFile(conf.output + p._1 + "/")
-    }
 
     es.close
   }

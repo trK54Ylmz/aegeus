@@ -23,8 +23,7 @@ import com.aegeus.config.Printable;
  * <p/>
  * Properties can be listed with {@link #toString() toString} method
  */
-public class S3ConfigObject extends Printable
-{
+public class S3ConfigObject extends Printable {
     /* Aws ami account access key */
     private String accessKey;
 

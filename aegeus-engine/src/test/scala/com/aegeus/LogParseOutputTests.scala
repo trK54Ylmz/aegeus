@@ -15,23 +15,13 @@
  */
 package com.aegeus
 
-import java.net.URLDecoder
-import java.util
-
-import com.aegeus.schema.{Schema, SchemaField}
-import com.aegeus.engine.log.CloudFrontLog
-import com.aegeus.utils.ParameterUtils
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import org.scalatest.FunSuite
 
-import scala.collection.JavaConversions._
-import scala.collection.mutable
-
-class LogParseOutputTests extends FunSuite
-{
+class LogParseOutputTests extends FunSuite {
   val mapper = new ObjectMapper() with ScalaObjectMapper
   mapper.registerModule(DefaultScalaModule)
 
@@ -43,84 +33,6 @@ class LogParseOutputTests extends FunSuite
     "2014-05-23 01:13:12 LAX1 2390282 192.0.2.202 GET d111111abcdef8.cloudfront.net /i 304 www.unknownsingers.com Mozilla/4.0%20(compatible;%20MSIE%207.0;%20Windows%20NT%205.1) u=Tutankamon&a=1340&_i=true zip=50158 Hit xGN7KWpVEmB9Dp7ctcVFQC4E-nrcOcEKS3QyAez--06dV7TEXAMPLE== d111111abcdef8.cloudfront.net http - 0.002 - - - Hit\n")
 
   test("log parse with output test") {
-    val username = new SchemaField
-    username.setAlias("u")
-    username.setName("username")
-    username.setPrimary(false)
-    username.setType("string")
-    username.setPrimary(false)
 
-    val age = new SchemaField
-    age.setAlias("a")
-    age.setName("age")
-    age.setPrimary(false)
-    age.setType("integer")
-    age.setDef("0")
-    age.setNullable(true)
-
-    val isNew = new SchemaField
-    isNew.setAlias("_i")
-    isNew.setName("is_new")
-    isNew.setDef("false")
-    isNew.setNullable(true)
-    isNew.setType("bool")
-
-    val fields: util.List[SchemaField] = new util.ArrayList[SchemaField]()
-    fields.add(username)
-    fields.add(age)
-    fields.add(isNew)
-
-    val schema = new Schema
-    schema.setActive(true)
-    schema.setPath("i")
-    schema.setTable("test-table")
-    schema.setFields(fields)
-
-    val beforeGroup = System.currentTimeMillis
-
-    val schemas: Map[String, Schema] = Map("i" -> schema)
-    val files = rows.mkString.split("\\n")
-    val schemaKeys = schemas.map { s => s._2.getPath }.toSeq
-
-    val group = files.filter(!_.startsWith("#"))
-      .map(p => new CloudFrontLog(p.split("[\\s]+")))
-      .groupBy(p => p.path)
-
-    println("Group diff : " + (System.currentTimeMillis - beforeGroup))
-
-    val beforeMap = System.currentTimeMillis
-    group.foreach { p =>
-      val m = p._2.map { r =>
-        val name = r.path.substring(1)
-        if (schemaKeys.contains(name)) {
-          val schema: Schema = schemas.get(name).get
-          val fields: List[SchemaField] = schema.getFields.toList
-
-          val params = Map(r.query.split('&')
-            .map { f => f.split('=') }
-            .map { a => (URLDecoder.decode(a(0), "utf-8"), URLDecoder.decode(a(1), "utf-8")) }: _*)
-
-          val row = mutable.ListBuffer[Any]()
-          fields.foreach { f =>
-            if (params.contains(f.getAlias)) {
-              row.add(ParameterUtils.getObject(f.getType, params.getOrElse(f.getAlias, "")))
-            } else {
-              if (f.isNullable) {
-                row.add(null)
-              } else if (f.getDef != null) {
-                row.add(ParameterUtils.getObject(f.getType, f.getDef))
-              } else {
-                throw new NullPointerException
-              }
-            }
-          }
-          mapper.writeValueAsString(row.toList)
-        } else {
-          None
-        }
-      }
-    }
-
-    println("Map diff : " + (System.currentTimeMillis - beforeMap))
   }
 }

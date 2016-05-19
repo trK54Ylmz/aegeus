@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-public class SchemaUtils
-{
+public class SchemaUtils {
     private static List<Class<?>> getClasses(File dir, String pkg) throws ClassNotFoundException {
         File[] files = dir.listFiles();
 

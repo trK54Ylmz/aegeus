@@ -13,7 +13,7 @@
 
     <properties>
         <aegeus-core.version>0.1</aegeus-core.version>
-        <aegeus-schema.version>0.1</aegeus-schema.version>
+        <commons-beanutils.versiom>1.9.2</commons-beanutils.versiom>
         <spark.version>1.5.2</spark.version>
         <elastic4s.version>1.7.4</elastic4s.version>
         <es-spark.version>2.1.1</es-spark.version>
@@ -28,6 +28,16 @@
             <groupId>org.scala-tools</groupId>
             <artifactId>maven-scala-plugin</artifactId>
             <version>${scala-tools.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-nop</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -40,6 +50,12 @@
             <groupId>com.aegeus</groupId>
             <artifactId>aegeus-core</artifactId>
             <version>${aegeus-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.versiom}</version>
         </dependency>
 
         <dependency>

@@ -15,17 +15,12 @@
  */
 package com.aegeus.config.format;
 
-public class WorkflowConfigObject
-{
+public class WorkflowConfigObject {
     private int latency;
 
     private int httpPort;
 
-    private String dbUser;
-
-    private String dbPass;
-
-    private int dbPort;
+    private DbConfigObject metaStore;
 
     private byte queueSize;
 
@@ -47,28 +42,12 @@ public class WorkflowConfigObject
         this.httpPort = httpPort;
     }
 
-    public String getDbUser() {
-        return dbUser;
+    public DbConfigObject getMetaStore() {
+        return metaStore;
     }
 
-    public void setDbUser(String dbUser) {
-        this.dbUser = dbUser;
-    }
-
-    public String getDbPass() {
-        return dbPass;
-    }
-
-    public void setDbPass(String dbPass) {
-        this.dbPass = dbPass;
-    }
-
-    public int getDbPort() {
-        return dbPort;
-    }
-
-    public void setDbPort(int dbPort) {
-        this.dbPort = dbPort;
+    public void setMetaStore(DbConfigObject metaStore) {
+        this.metaStore = metaStore;
     }
 
     public byte getQueueSize() {

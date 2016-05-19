@@ -16,10 +16,9 @@
 package com.aegeus.config;
 
 /**
- * Exception throws if value is out of range or unexpected pattern
+ * throws if value is out of range or has an unexpected pattern
  */
-public class IllegalValueException extends Exception
-{
+public class IllegalValueException extends Exception {
     public IllegalValueException(String msg) {
         super(msg);
     }

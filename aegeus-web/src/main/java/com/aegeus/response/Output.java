@@ -16,10 +16,16 @@
 package com.aegeus.response;
 
 import com.aegeus.util.RequestUtils;
+
 import org.springframework.web.servlet.ModelAndView;
 
-public class Output
-{
+public class Output {
+    /**
+     * Get response object by view name, redirect path etc.
+     *
+     * @param name view name, redirect path with prefix
+     * @return Returns model and view object by request name
+     */
     public static ModelAndView print(String name) {
         if (name.startsWith("redirect:")) {
             return new ModelAndView(name);

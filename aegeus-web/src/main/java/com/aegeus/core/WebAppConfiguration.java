@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.core;
 
 import org.springframework.context.annotation.Bean;
@@ -35,8 +36,7 @@ import java.util.Properties;
 @EnableWebMvc
 @Import(value = {WebAppBeans.class, AuthenticationConfiguration.class})
 @ComponentScan(basePackages = {"com.aegeus.controller"})
-public class WebAppConfiguration extends WebMvcConfigurerAdapter
-{
+public class WebAppConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry hdr) {
         hdr.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");

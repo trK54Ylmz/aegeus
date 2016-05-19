@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.db;
 
 import com.aegeus.config.format.DbConfigObject;
 
 import java.util.List;
 
-public class PostgresqlSessionFactory extends DbSessionFactory
-{
-    public PostgresqlSessionFactory(DbConfigObject config, List<Class> mapping) {
+public class PostgreSqlSessionFactory extends DbSessionFactory {
+    public PostgreSqlSessionFactory(DbConfigObject config, List<Class> mapping) {
         DbIdentity identity = new DbIdentity();
         identity.setDriver("org.postgresql.Driver");
         identity.setDialect("org.hibernate.dialect.PostgreSQLDialect");
-        identity.setUrl(String.format("jdbc:postgresql://%s:%d/%s", config.getHost(), config.getPort(), config.getDb()));
+        identity.setUrl(String.format("jdbc:postgresql://%s:%d/%s",
+                config.getHost(), config.getPort(), config.getDb()));
         identity.setUsername(config.getUsername());
         identity.setPassword(config.getPassword());
 

@@ -170,7 +170,8 @@
                         </goals>
                         <configuration>
                             <overwrite>true</overwrite>
-                            <outputDirectory>${project.build.directory}/classes/webapp/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/classes/webapp/
+                            </outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/main/webapp</directory>
@@ -186,7 +187,8 @@
                         </goals>
                         <configuration>
                             <overwrite>true</overwrite>
-                            <outputDirectory>${project.build.directory}/classes/webapp/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/classes/webapp/
+                            </outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/main/webapp</directory>

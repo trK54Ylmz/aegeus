@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus;
 
 import com.aegeus.config.ConfigParser;
 import com.aegeus.config.ConfigValidation;
 import com.aegeus.config.format.ConfigObject;
 import com.aegeus.execution.RootExecutor;
+
 import org.apache.log4j.Logger;
 
-public class WebServer
-{
+public class WebServer {
     private static final Logger LOGGER = Logger.getLogger(WebServer.class);
 
     public static void main(String[] args) {
@@ -33,18 +32,7 @@ public class WebServer
                 return;
             }
 
-            final RootExecutor executor = new RootExecutor(args, new ConfigValidation(config).validate());
-
-            /* add ctrl-c handler */
-            Runtime.getRuntime().addShutdownHook(new Thread()
-            {
-                @Override
-                public void run() {
-                    executor.stop();
-                }
-            });
-
-            executor.start();
+            new RootExecutor(args, new ConfigValidation(config).validate()).start();
         } catch (Throwable t) {
             LOGGER.error(t.getMessage(), t);
         }

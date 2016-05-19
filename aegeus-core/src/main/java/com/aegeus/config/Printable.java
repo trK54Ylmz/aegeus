@@ -16,13 +16,13 @@
 package com.aegeus.config;
 
 import com.google.common.base.MoreObjects;
+
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
 
-public abstract class Printable
-{
-    private static final Logger logger = Logger.getLogger(Printable.class);
+public abstract class Printable {
+    private static final Logger LOGGER = Logger.getLogger(Printable.class);
 
     @Override
     public String toString() {
@@ -34,7 +34,7 @@ public abstract class Printable
                 helper.add(field.getName(), field.get(this));
             }
         } catch (IllegalAccessException e) {
-            logger.error(e);
+            LOGGER.error(e.getMessage(), e);
         }
 
         return helper.toString();

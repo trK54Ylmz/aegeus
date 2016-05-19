@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.config.format;
 
 import com.aegeus.config.Printable;
@@ -23,8 +22,7 @@ import com.aegeus.config.Printable;
  * <p/>
  * Properties can be listed with {@link #toString() toString} method
  */
-public class AwsConfigObject extends Printable
-{
+public class AwsConfigObject extends Printable {
     /* Aws s3 configuration object */
     private S3ConfigObject s3;
 

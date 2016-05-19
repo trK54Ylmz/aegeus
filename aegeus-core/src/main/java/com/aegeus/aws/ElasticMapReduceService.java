@@ -22,13 +22,14 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduceClient;
 import com.amazonaws.services.elasticmapreduce.model.*;
+
 import com.google.common.base.Strings;
+
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
-public class ElasticMapReduceService
-{
+public class ElasticMapReduceService {
     private static final Logger LOGGER = Logger.getLogger(ElasticMapReduceService.class);
 
     private static final int SLEEP = 10000;

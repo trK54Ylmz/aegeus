@@ -20,9 +20,8 @@ import com.aegeus.config.format.DbConfigObject;
 
 import java.util.List;
 
-public class MysqlSessionFactory extends DbSessionFactory
-{
-    public MysqlSessionFactory(DbConfigObject config, List<Class> mapping) {
+public class MySqlSessionFactory extends DbSessionFactory {
+    public MySqlSessionFactory(DbConfigObject config, List<Class> mapping) {
         DbIdentity identity = new DbIdentity();
         identity.setDriver("com.mysql.jdbc.Driver");
         identity.setDialect("org.hibernate.dialect.MySQLDialect");

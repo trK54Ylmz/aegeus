@@ -16,8 +16,7 @@
 
 package com.aegeus.engine.utils
 
-object StringUtils
-{
+object StringUtils {
   def isEmpty(str: String) = Option(str).getOrElse("").isEmpty
 
   def isEmptyAny(str: String*): Boolean = str.filter { s => Option(s).getOrElse("").isEmpty }.toList.nonEmpty

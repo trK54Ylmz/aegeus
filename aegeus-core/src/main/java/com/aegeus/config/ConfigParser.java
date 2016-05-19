@@ -21,8 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ConfigParser
-{
+public class ConfigParser {
     private static final Yaml yaml = new Yaml();
 
     public static <T> T load(Class<T> ref) throws NullPointerException, FileNotFoundException {

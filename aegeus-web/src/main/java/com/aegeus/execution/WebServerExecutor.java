@@ -16,6 +16,7 @@
 package com.aegeus.execution;
 
 import com.aegeus.config.format.ConfigObject;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,8 +25,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.aegeus.core"})
-public class WebServerExecutor
-{
+public class WebServerExecutor {
     public void start(String[] args, ConfigObject config) {
         System.setProperty("server.port", String.valueOf(config.getWorkflow().getHttpPort()));
 

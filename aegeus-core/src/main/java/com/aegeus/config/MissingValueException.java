@@ -18,8 +18,7 @@ package com.aegeus.config;
 /**
  * Exception throws if value is null or empty
  */
-public class MissingValueException extends Exception
-{
+public class MissingValueException extends Exception {
     public MissingValueException(String msg) {
         super(msg);
     }

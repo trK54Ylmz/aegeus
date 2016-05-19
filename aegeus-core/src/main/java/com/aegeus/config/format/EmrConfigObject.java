@@ -15,8 +15,7 @@
  */
 package com.aegeus.config.format;
 
-public class EmrConfigObject
-{
+public class EmrConfigObject {
     private String accessKey;
 
     private String secretKey;

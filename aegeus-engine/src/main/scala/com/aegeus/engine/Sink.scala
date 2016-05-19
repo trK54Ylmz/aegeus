@@ -13,26 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.engine
 
-import com.aegeus.engine.config.{ConfigParser, ConfigObject}
-import com.aegeus.engine.job.{StorageWriter, FactTableWriter, SparkJobFactory}
-import com.aegeus.engine.schema.SchemaReader
+import com.aegeus.engine.config.ConfigParser
+import com.aegeus.engine.config.format.CliConfigObject
+import com.aegeus.engine.job.{FactTableWriter, SparkJobFactory, StorageWriter}
 import org.apache.log4j.Logger
 
-object Sink
-{
+object Sink {
   private[this] lazy val logger: Logger = Logger.getLogger(this.getClass.getName)
 
-  val config = ConfigParser.load[ConfigObject]
-
-  val job = new SparkJobFactory(config).startClient
-
   def main(args: Array[String]) {
-    try {
-      val schema = new SchemaReader(config).read()
+    val config = ConfigParser.getConfig(args, classOf[CliConfigObject])
 
+    val job = new SparkJobFactory(config).startContext
+
+    try {
       /**
         * Save fact table from Elasticsearch to storage (local or s3)
         * over Spark connector
@@ -40,7 +36,7 @@ object Sink
       val fact = new FactTableWriter(job.sc, config)
       fact.write()
 
-      val storage = new StorageWriter(job.sc, config, schema)
+      val storage = new StorageWriter(job.sc, config)
       storage.write()
     } catch {
       case e: Throwable => logger.error(e.getMessage, e)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Tarık Yılmaz
+ * Copyright 2016 Tarık Yılmaz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.aegeus.exception;
 
-package com.aegeus.db;
+public class AegeusException extends Exception {
+    public AegeusException() {
+        super();
+    }
 
-import com.aegeus.config.format.DbConfigObject;
+    public AegeusException(String message) {
+        super(message);
+    }
 
-public class H2SessionFactory extends DbSessionFactory
-{
-    public H2SessionFactory(DbConfigObject config) {
+    public AegeusException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
+    public AegeusException(Throwable cause) {
+        super(cause);
     }
 }

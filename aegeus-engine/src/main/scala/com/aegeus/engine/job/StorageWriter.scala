@@ -15,13 +15,12 @@
  */
 package com.aegeus.engine.job
 
-import com.aegeus.schema.Schema
-import com.aegeus.engine.config.ConfigObject
+import com.aegeus.engine.config.format.CliConfigObject
+import com.aegeus.schema.entity.StarSchema
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
 
-class StorageWriter(sc: SparkContext, conf: ConfigObject, schema: Map[String, Schema])
-{
+class StorageWriter[T <: StarSchema](sc: SparkContext, conf: CliConfigObject) {
   val sql = new SQLContext(sc)
 
   def write(): Unit = {

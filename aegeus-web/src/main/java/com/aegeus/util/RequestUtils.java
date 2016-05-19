@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.util;
 
 import org.apache.log4j.Logger;
@@ -25,26 +24,19 @@ import java.util.Map;
 
 public class RequestUtils
 {
-    private static final Logger logger = Logger.getLogger(RequestUtils.class);
+    private static final Logger LOGGER = Logger.getLogger(RequestUtils.class);
 
     /**
      * Example usage:
      * <p/>
-     * {@link RequestProperties}
-     * {@link org.springframework.stereotype.Controller}
-     * public class Main {
-     * ...
-     * }
+     * {@link RequestProperties} {@link org.springframework.stereotype.Controller} public class Main
+     * { ... }
      * <p/>
      * or
      * <p/>
-     * {@link org.springframework.stereotype.Controller}
-     * public class Main {
-     * {@link RequestProperties}
-     * public {@link org.springframework.web.servlet.ModelAndView} mainPage() {
-     * ...
-     * }
-     * }
+     * {@link org.springframework.stereotype.Controller} public class Main { {@link
+     * RequestProperties} public {@link org.springframework.web.servlet.ModelAndView} mainPage() {
+     * ... } }
      *
      * @param <E> View name
      * @return Request properties
@@ -106,7 +98,7 @@ public class RequestUtils
                     }
                 }
             } catch (ClassNotFoundException e) {
-                logger.error(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
             }
         }
 

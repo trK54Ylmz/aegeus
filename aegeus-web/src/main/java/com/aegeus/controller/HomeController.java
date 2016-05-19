@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Tarık Yılmaz
+ * Copyright 2016 Tarık Yılmaz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aegeus.controller;
 
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class HomeController
-{
+public class HomeController {
     @RequestMapping("/")
     public ModelAndView showHomePage() {
         return new ModelAndView("home_page");

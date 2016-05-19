@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.config.format;
 
 import com.aegeus.config.Printable;
 
-public class ConfigObject extends Printable
-{
+public class ConfigObject extends Printable {
     private WorkflowConfigObject workflow;
 
     private DbConfigObject db;
@@ -48,10 +46,5 @@ public class ConfigObject extends Printable
 
     public void setAws(AwsConfigObject aws) {
         this.aws = aws;
-    }
-
-    @Override
-    public String toString() {
-        return this.toString();
     }
 }

@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.core;
 
 import com.aegeus.config.format.ConfigObject;
 import com.aegeus.db.DbSessionFactory;
-import com.aegeus.db.MysqlSessionFactory;
-import com.aegeus.db.PostgresqlSessionFactory;
+import com.aegeus.db.MySqlSessionFactory;
+import com.aegeus.db.PostgreSqlSessionFactory;
 import com.aegeus.utils.ConfigUtils;
 import com.aegeus.utils.SchemaUtils;
+
 import com.google.common.base.Preconditions;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 
 @Configuration
-public class WebAppBeans
-{
+public class WebAppBeans {
     private static final String SCHEMA_NAME = "com.aegeus.db.schema";
 
     @Bean
@@ -38,6 +38,7 @@ public class WebAppBeans
         return ConfigUtils.getConfig();
     }
 
+    @Bean
     public DbSessionFactory factory() throws ClassNotFoundException, IOException {
         DbSessionFactory factory = null;
         ConfigObject config = config();
@@ -45,12 +46,12 @@ public class WebAppBeans
         switch (config.getDb().getType()) {
             case "mysql":
             case "memsql":
-                factory = new MysqlSessionFactory(config.getDb(), SchemaUtils.getDepends(SCHEMA_NAME));
+                factory = new MySqlSessionFactory(config.getDb(), SchemaUtils.getDepends(SCHEMA_NAME));
                 break;
 
             case "postgres":
             case "redshift":
-                factory = new PostgresqlSessionFactory(config.getDb(), SchemaUtils.getDepends(SCHEMA_NAME));
+                factory = new PostgreSqlSessionFactory(config.getDb(), SchemaUtils.getDepends(SCHEMA_NAME));
                 break;
         }
 

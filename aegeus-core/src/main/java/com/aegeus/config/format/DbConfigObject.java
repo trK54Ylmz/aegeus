@@ -15,8 +15,7 @@
  */
 package com.aegeus.config.format;
 
-public class DbConfigObject
-{
+public class DbConfigObject {
     private String type;
 
     private String host;

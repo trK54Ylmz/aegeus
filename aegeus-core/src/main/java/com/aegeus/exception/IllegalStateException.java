@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Tarık Yılmaz
+ * Copyright 2016 Tarık Yılmaz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.aegeus.exception;
 
-package com.aegeus.execution;
-
-import com.aegeus.config.format.ConfigObject;
-import com.aegeus.db.EmbeddedDataSource;
-
-public class DatabaseExecutor
-{
-    private EmbeddedDataSource ds;
-
-    public void start(ConfigObject config) {
-        ds = new EmbeddedDataSource(config);
+public class IllegalStateException extends AegeusException {
+    public IllegalStateException() {
+        super();
     }
 
-    public void stop() {
-        ds.stop();
+    public IllegalStateException(String message) {
+        super(message);
+    }
+
+    public IllegalStateException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public IllegalStateException(Throwable cause) {
+        super(cause);
     }
 }

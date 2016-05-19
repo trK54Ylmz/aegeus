@@ -29,6 +29,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
@@ -40,8 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SimpleStorageService
-{
+public class SimpleStorageService {
     private S3ConfigObject config;
 
     private final AmazonS3Client s3;

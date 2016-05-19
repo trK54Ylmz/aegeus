@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Tarık Yılmaz
+ * Copyright 2016 Tarık Yılmaz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.engine.config
+package com.aegeus.engine.config;
 
-class ConfigObject
-{
-  var appName: String = _
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.lang.annotation.RetentionPolicy;
 
-  var master: String = _
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface ConfigFormat {
+    String name() default "";
 
-  var s3Access: String = _
+    String longName() default "";
 
-  var s3Secret: String = _
-
-  var s3Region: String = _
-
-  var schema: String = _
-
-  var data: String = _
-
-  var output: String = _
-
-  var test: Boolean = false
+    boolean arg() default true;
 }

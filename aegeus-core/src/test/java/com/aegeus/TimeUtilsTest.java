@@ -16,13 +16,13 @@
 package com.aegeus;
 
 import com.aegeus.utils.TimeUtils;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TimeUtilsTest
-{
+public class TimeUtilsTest {
     @Test
     public void basicDateTest() {
         assertEquals(TimeUtils.getDate("2015-09-02 21:23:59").getTime(), new DateTime(2015, 9, 2, 21, 23, 59).toDate().getTime());

@@ -17,6 +17,7 @@ package com.aegeus.core;
 
 import com.aegeus.config.format.ConfigObject;
 import com.aegeus.utils.ConfigUtils;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -40,12 +41,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.servlet.Filter;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class AuthenticationConfiguration
-{
+public class AuthenticationConfiguration {
     @Bean
     public ConfigObject config() {
         return ConfigUtils.getConfig();
@@ -58,14 +59,19 @@ public class AuthenticationConfiguration
 
     @Bean
     public JdbcRealm realm() {
-        String uri = String.format("jdbc:h2:tcp://localhost:%d/aegeus", config().getWorkflow().getDbPort());
-
         ConfigObject config = config();
 
+        String uri = String.format("jdbc:%s://%s:%d/%s",
+                config.getWorkflow().getMetaStore().getType(),
+                config.getWorkflow().getMetaStore().getHost(),
+                config.getWorkflow().getMetaStore().getPort(),
+                config.getWorkflow().getMetaStore().getDb());
+
+        // initialize meta store database connection
         JdbcDataSource ds = new JdbcDataSource();
         ds.setURL(uri);
-        ds.setUser(config.getWorkflow().getDbUser());
-        ds.setPassword(config.getWorkflow().getDbPass());
+        ds.setUser(config.getWorkflow().getMetaStore().getUsername());
+        ds.setPassword(config.getWorkflow().getMetaStore().getPassword());
 
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
         matcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);

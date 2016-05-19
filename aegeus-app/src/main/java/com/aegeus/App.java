@@ -18,10 +18,10 @@ package com.aegeus;
 import com.aegeus.app.AppWrapper;
 import com.aegeus.config.ConfigParser;
 import com.aegeus.config.format.ConfigObject;
+
 import org.apache.log4j.Logger;
 
-public class App
-{
+public class App {
     private static final Logger logger = Logger.getLogger(App.class);
 
     public static void main(final String[] args) {
@@ -30,8 +30,7 @@ public class App
             if (config == null) return;
 
             final AppWrapper wrapper = new AppWrapper(config);
-            Runtime.getRuntime().addShutdownHook(new Thread()
-            {
+            Runtime.getRuntime().addShutdownHook(new Thread() {
                 @Override
                 public void run() {
                     wrapper.stop();

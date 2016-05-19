@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Tarık Yılmaz
+ * Copyright 2016 Tarık Yılmaz
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.controller;
 
 import com.aegeus.response.Output;
 import com.aegeus.util.RequestProperties;
+import com.aegeus.util.SessionUtils;
 import com.google.common.base.Strings;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,19 +28,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class LogInController
-{
-    @RequestProperties(name = "Login")
+public class LogInController {
+    @RequestProperties(name = "login")
     @RequestMapping(value = "/login", method = GET)
     public ModelAndView showLogInPage() {
-        /**
-         * Check the user authentication status
-         */
-        Subject user = SecurityUtils.getSubject();
-        if (user.isAuthenticated()) {
-            if (user.hasRole("admin") || user.hasRole("user")) {
-                return Output.print("redirect:/");
-            }
+        /* Check the user authentication status */
+        if (SessionUtils.hasUser()) {
+            return Output.print("redirect:/");
         }
 
         return Output.print("login");

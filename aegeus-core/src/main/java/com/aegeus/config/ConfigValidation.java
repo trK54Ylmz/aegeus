@@ -21,15 +21,16 @@ import com.aegeus.config.format.EmrConfigObject;
 import com.aegeus.config.format.S3ConfigObject;
 import com.aegeus.config.format.WorkflowConfigObject;
 
-import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+
 import org.apache.log4j.Logger;
 
+import java.util.Random;
+
 /**
- * This class will make validation over the config.yml data
+ * makes couple validations over the config.yml data
  */
-public class ConfigValidation
-{
+public class ConfigValidation {
     private static final Logger logger = Logger.getLogger(ConfigValidation.class);
 
     private final ConfigObject config;
@@ -40,8 +41,6 @@ public class ConfigValidation
 
     /**
      * Workflow object validation
-     *
-     * @throws IllegalValueException
      */
     private void validateWorkflow() throws IllegalValueException {
         WorkflowConfigObject workflow = config.getWorkflow();
@@ -50,8 +49,8 @@ public class ConfigValidation
             throw new IllegalValueException("workflow.latency must be between 1 (1 min) and 1440 (1 day)");
         }
 
-        if (workflow.getDbPort() < 1 || workflow.getDbPort() > 65535) {
-            throw new IllegalValueException("workflow.dbPort must be between 1 and 65535");
+        if (workflow.getMetaStore().getPort() < 1 || workflow.getMetaStore().getPort() > 65535) {
+            throw new IllegalValueException("workflow.metaStore.port must be between 1 and 65535");
         }
 
         if (workflow.getHttpPort() < 1 || workflow.getHttpPort() > 65535) {
@@ -70,8 +69,6 @@ public class ConfigValidation
 
     /**
      * DB object validation
-     *
-     * @throws IllegalValueException
      */
     private void validateDb() throws IllegalValueException {
         DbConfigObject db = config.getDb();
@@ -88,9 +85,6 @@ public class ConfigValidation
 
     /**
      * AWS properties validation
-     *
-     * @throws IllegalValueException
-     * @throws MissingValueException
      */
     private void validateAws() throws IllegalValueException, MissingValueException {
         EmrConfigObject emr = config.getAws().getEmr();
@@ -129,7 +123,13 @@ public class ConfigValidation
         }
 
         if (Strings.isNullOrEmpty(emr.getName())) {
-            logger.info("aws.emr.name is empty. Cluster name assigned to `aegeus-`");
+            final Random random = new Random();
+
+            int randId = Math.abs(random.nextInt());
+
+            logger.info(String.format("aws.emr.name is empty. Cluster name assigned to `aegeus-%d`", randId));
+
+            emr.setName("aegeus-" + randId);
         }
 
         if (emr.getInstanceCount() < 2) {
@@ -159,7 +159,6 @@ public class ConfigValidation
      * Updates {@link ConfigObject} with generic validators
      *
      * @return Validated and update configuration object
-     * @throws IllegalValueException
      */
     public ConfigObject validate() throws IllegalValueException, MissingValueException {
         validateWorkflow();

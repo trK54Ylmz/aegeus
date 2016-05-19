@@ -20,8 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 
-trait LogReader
-{
+trait LogReader {
   val es = new ElasticsearchClient
   es.createIndices
 

@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.aegeus.execution;
 
 import com.aegeus.config.format.ConfigObject;
 
-public class RootExecutor
-{
+public class RootExecutor {
     private final String[] args;
 
     private final ConfigObject config;
 
     private final WebServerExecutor ws = new WebServerExecutor();
-
-    private final DatabaseExecutor db = new DatabaseExecutor();
 
     public RootExecutor(String[] args, ConfigObject config) {
         this.args = args;
@@ -34,12 +30,6 @@ public class RootExecutor
     }
 
     public void start() {
-        db.start(config);
-
         ws.start(args, config);
-    }
-
-    public void stop() {
-        db.stop();
     }
 }

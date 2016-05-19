@@ -15,30 +15,24 @@
  */
 package com.aegeus.engine.job
 
-import com.aegeus.engine.config.ConfigObject
+import com.aegeus.engine.config.format.CliConfigObject
 import com.aegeus.utils.TimeUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
-class SparkJobFactory(conf: ConfigObject)
-{
+class SparkJobFactory(conf: CliConfigObject) {
   var sc: SparkContext = _
 
-  def startClient: SparkJobFactory = {
-    if (conf.master == null) {
-      conf.master = "local"
-    }
-
-    if (conf.appName == null) {
-      conf.appName = "aegeus-spark-" + TimeUtils.getString
-    }
+  def startContext: SparkJobFactory = {
+    val master = if (conf.isTest) "local[*]" else ""
+    val appName = "aegeus-spark-" + TimeUtils.getString
 
     val sparkConf = new SparkConf()
-      .setMaster(conf.master)
-      .setAppName(conf.appName)
+      .setMaster(master)
+      .setAppName(appName)
       .set("es.nodes", "localhost")
       .set("es.nodes.discovery", "false")
 
-    sc = new SparkContext(conf.master, conf.appName, sparkConf)
+    sc = new SparkContext(sparkConf)
 
     this
   }

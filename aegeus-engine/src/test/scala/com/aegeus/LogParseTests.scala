@@ -15,11 +15,10 @@
  */
 package com.aegeus
 
-import com.aegeus.engine.log.CloudFrontLog
+import com.aegeus.engine.io.CloudFrontLog
 import org.scalatest.FunSuite
 
-class LogParseTests extends FunSuite
-{
+class LogParseTests extends FunSuite {
   val row = "2014-05-23 01:13:11 FRA2 182 192.0.2.10 GET d111111abcdef8.cloudfront.net /view/my/file.html 200 www.displaymyfiles.com Mozilla/4.0%20(compatible;%20MSIE%205.0b1;%20Mac_PowerPC) - zip=98101 RefreshHit MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE== d111111abcdef8.cloudfront.net http - 0.001 - - - RefreshHit"
 
   test("row split") {

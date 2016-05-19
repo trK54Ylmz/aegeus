@@ -20,8 +20,7 @@ import com.aegeus.config.format.ConfigObject;
 
 import java.io.FileNotFoundException;
 
-public class ConfigUtils
-{
+public class ConfigUtils {
     /**
      * Load configuration by yaml file
      *

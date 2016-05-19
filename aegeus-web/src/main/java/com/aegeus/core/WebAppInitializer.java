@@ -26,10 +26,10 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+
 import java.util.Set;
 
-public class WebAppInitializer implements WebApplicationInitializer
-{
+public class WebAppInitializer implements WebApplicationInitializer {
     private static final Logger logger = Logger.getLogger(WebAppInitializer.class);
 
     @Override

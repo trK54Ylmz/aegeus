@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aegeus.concurrent;
+package com.aegeus.executor;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -26,8 +26,7 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadPool
-{
+public class ThreadPool {
     private static final Logger logger = LogManager.getLogger(ThreadPool.class);
 
     private ThreadPoolExecutor executor;
@@ -48,8 +47,7 @@ public class ThreadPool
         final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(queueSize);
 
         executor = new ThreadPoolExecutor(coreSize, coreSize, 1L, TimeUnit.HOURS, queue);
-        executor.setRejectedExecutionHandler(new RejectedExecutionHandler()
-        {
+        executor.setRejectedExecutionHandler(new RejectedExecutionHandler() {
             public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
                 try {
                     Thread.sleep(2000);

@@ -15,21 +15,20 @@
  */
 package com.aegeus.engine.job
 
-import com.aegeus.engine.config.ConfigObject
+import com.aegeus.engine.config.format.CliConfigObject
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import org.apache.spark.SparkContext
 import org.elasticsearch.spark._
 
-class FactTableWriter(sc: SparkContext, conf: ConfigObject)
-{
+class FactTableWriter(sc: SparkContext, conf: CliConfigObject) {
   val writer = new ObjectMapper with ScalaObjectMapper
   writer.registerModule(DefaultScalaModule)
 
   def write() {
     sc.esRDD("facts/fact").map { p =>
       writer.writeValueAsString(p._2.values)
-    }.saveAsTextFile(conf.output + "fact/")
+    }.saveAsTextFile(conf.getOutput + "fact/")
   }
 }

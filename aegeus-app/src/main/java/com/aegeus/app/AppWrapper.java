@@ -15,12 +15,12 @@
  */
 package com.aegeus.app;
 
-import com.aegeus.concurrent.ThreadPool;
+import com.aegeus.executor.ThreadPool;
 import com.aegeus.config.format.ConfigObject;
+
 import org.apache.log4j.Logger;
 
-public class AppWrapper
-{
+public class AppWrapper {
     private static final Logger logger = Logger.getLogger(AppWrapper.class);
 
     private final ConfigObject config;
@@ -50,8 +50,7 @@ public class AppWrapper
 
         while (true) {
             try {
-                pool.execute(new Runnable()
-                {
+                pool.execute(new Runnable() {
                     @Override
                     public void run() {
 

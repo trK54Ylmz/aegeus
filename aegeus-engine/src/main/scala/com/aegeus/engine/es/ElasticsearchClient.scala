@@ -24,8 +24,7 @@ import com.sksamuel.elastic4s.mappings.TypedFieldDefinition
 
 import scala.collection.mutable
 
-class ElasticsearchClient
-{
+class ElasticsearchClient {
   lazy val client = ElasticClient.remote("localhost", 9300)
 
   var types: Map[String, Class[_]] = _
@@ -35,8 +34,8 @@ class ElasticsearchClient
     *
     * @param name Field name
     * @param ref  Field type
-    * @tparam T   Field type subtypes
-    * @return     The field definition type
+    * @tparam T Field type subtypes
+    * @return The field definition type
     */
   protected def getType[T >: TypedFieldDefinition](name: String, ref: Class[_]): T = {
     var name = ref.getName.toLowerCase

@@ -19,8 +19,7 @@ import com.aegeus.config.ConfigParser
 import com.aegeus.config.format.ConfigObject
 import org.scalatest.{BeforeAndAfter, FunSuite}
 
-class BasicTests extends FunSuite with BeforeAndAfter
-{
+class BasicTests extends FunSuite with BeforeAndAfter {
   test("basic parse test") {
     val obj = ConfigParser.load(classOf[ConfigObject])
     println(obj)

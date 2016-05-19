@@ -21,8 +21,7 @@ import com.aegeus.engine.es.ElasticsearchClient
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 
-class FactTableTests extends FunSuite
-{
+class FactTableTests extends FunSuite {
   val es = new ElasticsearchClient
   es.types = Map("user_id" -> classOf[Int], "search_id" -> classOf[String], "add_time" -> classOf[Date])
 

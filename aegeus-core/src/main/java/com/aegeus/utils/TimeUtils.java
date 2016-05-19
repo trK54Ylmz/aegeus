@@ -21,8 +21,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class TimeUtils
-{
+public class TimeUtils {
     private static final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
     /**

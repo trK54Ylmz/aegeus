@@ -23,8 +23,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RequestProperties
-{
+public @interface RequestProperties {
     String name() default "Error";
 
     String icon() default "";
