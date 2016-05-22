@@ -29,18 +29,47 @@ public class TimeUtils {
      *
      * @return Formatted date
      */
-    public static String getString() {
+    public static String getFormat() {
         return formatter.print(new Date().getTime());
     }
 
-    public static String getString(Date date) {
+    /**
+     * Get input date as formatted string
+     *
+     * @param date date object
+     * @return Formatted date
+     */
+    public static String getFormat(Date date) {
         return formatter.print(date.getTime());
     }
 
+    /**
+     * Returns formatted date string by date and format string
+     *
+     * @param date   date object
+     * @param format date format
+     * @return formatted date
+     */
+    public static String getFormat(Date date, String format) {
+        return DateTimeFormat.forPattern(format).print(date.getTime());
+    }
+
+    /**
+     * Returns input string as Java date
+     *
+     * @param input formatted data string
+     * @return data object
+     */
     public static Date getDate(String input) {
         return formatter.parseDateTime(input).toDate();
     }
 
+    /**
+     * Returns input date as timestamp object
+     *
+     * @param input formatted date string
+     * @return sql timestamp object
+     */
     public static Timestamp getTime(String input) {
         return new Timestamp(formatter.parseDateTime(input).toDate().getTime());
     }

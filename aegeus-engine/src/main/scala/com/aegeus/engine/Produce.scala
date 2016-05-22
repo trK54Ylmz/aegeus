@@ -18,11 +18,8 @@ package com.aegeus.engine
 import com.aegeus.engine.config.ConfigParser
 import com.aegeus.engine.config.format.CliConfigObject
 import com.aegeus.engine.job.{FactTableWriter, SparkJobFactory, StorageWriter}
-import org.apache.log4j.Logger
 
-object Sink {
-  private[this] lazy val logger: Logger = Logger.getLogger(this.getClass.getName)
-
+object Produce extends Job {
   def main(args: Array[String]) {
     val config = ConfigParser.getConfig(args, classOf[CliConfigObject])
 

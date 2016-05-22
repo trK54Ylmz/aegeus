@@ -18,7 +18,7 @@ package com.aegeus.schema.entity;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
-public class TableA extends Schema {
+public class TableASchema extends Schema {
     @Id
     @Column(name = "fact_id", unique = true, nullable = false)
     private String factId;
@@ -86,5 +86,27 @@ public class TableA extends Schema {
     @Column
     private String s20;
 
+    @Column
+    private boolean b1;
 
+    @Column
+    private boolean b2;
+
+    @Column
+    private boolean b3;
+
+    @Column
+    private boolean b4;
+
+    @Column
+    private int i1;
+
+    @Column
+    private int i2;
+
+    @Column
+    private int i3;
+
+    @Column
+    private int i4;
 }

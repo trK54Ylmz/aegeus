@@ -17,18 +17,30 @@ package com.aegeus.engine.input
 
 import com.aegeus.engine.config.format.CliConfigObject
 import com.aegeus.engine.io.CloudFrontLog
-import org.apache.spark.SparkContext
-import org.apache.spark.rdd.RDD
+import com.aegeus.schema.SchemaContainer
+import com.aegeus.schema.entity.{StarSchema, TableASchema}
+import org.apache.spark.sql.{DataFrame, SQLContext}
 
-class CloudFrontReader(sc: SparkContext, conf: CliConfigObject) extends LogReader {
-  override def parse(): Unit = {
-    val files: RDD[String] = sc.textFile(conf.getInput)
+class CloudFrontReader(sql: SQLContext, conf: CliConfigObject)
+  extends LogReader[CloudFrontLog] {
 
-    val group = files.filter(!_.startsWith("#"))
-      .map(p => new CloudFrontLog(p.split("[\\s]+")))
-      .filter(p => p.resType.equals("Hit"))
-      .groupBy(_.path)
+  override def schemaGenerate(log: CloudFrontLog): SchemaContainer = {
+    val star = new StarSchema
+    val tableA = new TableASchema
 
-    es.close
+    val container = new SchemaContainer()
+    container.setStarSchema(star)
+    container.setTableASchema(tableA)
+
+    container
+  }
+
+  override def parse(): DataFrame = {
+    val rdd = sql.sparkContext
+      .textFile(conf.getInput)
+      .filter(!_.startsWith("#"))
+      .map(p => schemaGenerate(new CloudFrontLog(p.split("[\\s]+"))))
+
+    sql.createDataFrame(rdd, classOf[SchemaContainer])
   }
 }

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS roles (
 INSERT INTO users (id, user, pass)
 VALUES (NULL, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918');
 
-SET @last_id = (SELECT TOP 1 id
+SET @last_id = (SELECT LAST_INSERT_ID()
                 FROM users
                 WHERE user = 'admin');
 

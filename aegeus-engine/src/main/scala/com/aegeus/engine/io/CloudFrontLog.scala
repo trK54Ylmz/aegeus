@@ -15,7 +15,7 @@
  */
 package com.aegeus.engine.io
 
-import org.apache.commons.lang3.builder.ToStringBuilder
+import com.aegeus.config.Printable
 
 /**
   * CloudFront log syntax
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder
   * cs(Cookie) x-edge-result-type x-edge-request-id x-host-header cs-protocol cs-bytes time-taken x-forwarded-for ssl-protocol
   * ssl-cipher x-edge-response-result-type
   */
-class CloudFrontLog(cols: Array[String]) {
+class CloudFrontLog(cols: Array[String]) extends Printable with Log {
   var date: String = cols(0)
   var time: String = cols(1)
   var location: String = cols(2)
@@ -49,5 +49,5 @@ class CloudFrontLog(cols: Array[String]) {
   var cipher: String = cols(21)
   var resType: String = cols(22)
 
-  override def toString = ToStringBuilder.reflectionToString(this)
+  override def toString = super.toString
 }

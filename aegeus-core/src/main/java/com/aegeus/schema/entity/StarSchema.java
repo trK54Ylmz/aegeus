@@ -24,7 +24,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public abstract class StarSchema extends Schema {
+public class StarSchema extends Schema {
     @Id
     @Column(name = "fact_id", unique = true, nullable = false)
     private String factId;

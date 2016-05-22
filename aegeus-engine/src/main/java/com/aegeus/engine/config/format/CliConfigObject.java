@@ -34,6 +34,9 @@ public class CliConfigObject extends Printable {
     @ConfigFormat(name = "r", longName = "region")
     private String regionKey;
 
+    @ConfigFormat(name = "c", longName = "clock")
+    private long time;
+
     @ConfigFormat(name = "t", longName = "test", arg = false)
     private boolean test;
 
@@ -75,6 +78,14 @@ public class CliConfigObject extends Printable {
 
     public void setRegionKey(String regionKey) {
         this.regionKey = regionKey;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public boolean isTest() {

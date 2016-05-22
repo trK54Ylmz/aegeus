@@ -19,20 +19,38 @@ import com.aegeus.engine.config.ConfigParser
 import com.aegeus.engine.config.format.CliConfigObject
 import com.aegeus.engine.input.CloudFrontReader
 import com.aegeus.engine.job.SparkJobFactory
-import org.apache.log4j.Logger
+import com.aegeus.engine.schema.MetaDataFactory
+import org.apache.spark.sql.SaveMode
+import org.apache.spark.sql.functions._
 
-object Enrich {
-  private[this] lazy val logger = Logger.getLogger(this.getClass.getName)
+import _root_.scala.collection.JavaConversions._
 
+object Enrich extends Job {
   def main(args: Array[String]) {
     val config = ConfigParser.getConfig(args, classOf[CliConfigObject])
 
     val job = new SparkJobFactory(config).startContext
 
     try {
-      val input = new CloudFrontReader(job.sc, config)
+      val input = new CloudFrontReader(job.sql, config)
 
-      input.parse()
+      // creates data frame through log files
+      val df = input.parse()
+
+      /**
+        * get output directory names by [[com.aegeus.schema.Schema]] annotation
+        *
+        * schema annotation defines output folder name
+        */
+      val fields = MetaDataFactory.getFields
+
+      // iterate all over schema list and write each schema to output folder
+      for (schema <- fields) {
+        df.select(col(schema))
+          .write
+          .mode(SaveMode.Overwrite)
+          .parquet(s"${config.getOutput}/${getPartition(config.getTime)}/$schema")
+      }
     } catch {
       case e: Exception => logger.error(e.getMessage, e)
     }

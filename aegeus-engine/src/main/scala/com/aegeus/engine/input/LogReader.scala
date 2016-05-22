@@ -16,16 +16,21 @@
 package com.aegeus.engine.input
 
 import com.aegeus.engine.es.ElasticsearchClient
+import com.aegeus.engine.io.Log
+import com.aegeus.schema.SchemaContainer
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
+import org.apache.spark.sql.DataFrame
 
-trait LogReader {
+trait LogReader[E <: Log] {
   val es = new ElasticsearchClient
   es.createIndices
 
   val writer = new ObjectMapper() with ScalaObjectMapper
   writer.registerModule(DefaultScalaModule)
 
-  def parse()
+  def schemaGenerate(log: E): SchemaContainer = ???
+
+  def parse(): DataFrame = ???
 }

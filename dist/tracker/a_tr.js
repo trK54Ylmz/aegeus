@@ -69,7 +69,10 @@
         if (!name) {
             return null;
         }
-        return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(name).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+        return decodeURIComponent(document.cookie.replace(
+                new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(name)
+                        .replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1"))
+               || null;
 
     };
 
@@ -94,7 +97,9 @@
         if (t) {
             switch (t.constructor) {
                 case Number:
-                    exp = t === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + t;
+                    exp =
+                        t === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age="
+                                                                                     + t;
                     break;
                 case String:
                     exp = "; expires=" + t;
@@ -104,7 +109,9 @@
                     break;
             }
         }
-        document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + exp + (d ? "; domain=" + d : "") + (p ? "; path=" + p : "") + (iss ? "; secure" : "");
+        document.cookie =
+            encodeURIComponent(k) + "=" + encodeURIComponent(v) + exp + (d ? "; domain=" + d : "")
+            + (p ? "; path=" + p : "") + (iss ? "; secure" : "");
         return true;
     };
 
@@ -121,7 +128,9 @@
         if (!this.cookieExists(k)) {
             return false;
         }
-        document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (d ? "; domain=" + d : "") + (p ? "; path=" + p : "");
+        document.cookie =
+            encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (d ? "; domain="
+            + d : "") + (p ? "; path=" + p : "");
         return true;
     };
 
@@ -136,7 +145,8 @@
         if (!key) {
             return false;
         }
-        return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+        return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&")
+                           + "\\s*\\=")).test(document.cookie);
     };
 
     /**
@@ -145,7 +155,8 @@
      * @returns {Array}
      */
     tracker.getCookieNames = function () {
-        var ky = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+        var ky = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g,
+                                         "").split(/\s*(?:\=[^;]*)?;\s*/);
         for (var ln = ky.length, i = 0; i < ln; i++) {
             ky[i] = decodeURIComponent(ky[i]);
         }
@@ -184,7 +195,9 @@
             } else if (isNaN(i)) {
                 a = 64
             }
-            t = t + this.ascii.charAt(s) + this.ascii.charAt(o) + this.ascii.charAt(u) + this.ascii.charAt(a)
+            t =
+                t + this.ascii.charAt(s) + this.ascii.charAt(o) + this.ascii.charAt(u)
+                + this.ascii.charAt(a)
         }
         return t;
     };
@@ -313,7 +326,8 @@
             'America/Chicago': ['America/Mexico_City'],
             'America/Santiago': ['America/Asuncion', 'America/Campo_Grande'],
             'America/Montevideo': ['America/Sao_Paulo'],
-            'Asia/Beirut': ['Asia/Amman', 'Asia/Jerusalem', 'Europe/Helsinki', 'Asia/Damascus', 'Africa/Cairo', 'Asia/Gaza', 'Europe/Minsk'],
+            'Asia/Beirut': ['Asia/Amman', 'Asia/Jerusalem', 'Europe/Helsinki', 'Asia/Damascus',
+                            'Africa/Cairo', 'Asia/Gaza', 'Europe/Minsk'],
             'Pacific/Auckland': ['Pacific/Fiji'],
             'America/Los_Angeles': ['America/Santa_Isabel'],
             'America/New_York': ['America/Havana'],
@@ -433,7 +447,6 @@
         var ofs = -new Date().getTimezoneOffset();
         return (ofs !== null ? ofs : 0);
     };
-
 
     /**
      *

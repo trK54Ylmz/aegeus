@@ -18,8 +18,7 @@
         <elastic4s.version>1.7.4</elastic4s.version>
         <es-spark.version>2.1.1</es-spark.version>
         <jackson.version>2.6.0</jackson.version>
-        <mysql.version>5.1.35</mysql.version>
-        <postgresql.version>9.1-901.jdbc4</postgresql.version>
+        <memsql.spark.version>1.3.2</memsql.spark.version>
         <scalatest.version>2.2.4</scalatest.version>
     </properties>
 
@@ -89,15 +88,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
+            <groupId>com.memsql</groupId>
+            <artifactId>memsql-connector_${scala.major.version}</artifactId>
+            <version>${memsql.spark.version}</version>
         </dependency>
 
         <dependency>
@@ -161,7 +154,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>com.aegeus.engine.Sink</mainClass>
+                                    <mainClass>com.aegeus.engine.Produce</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
